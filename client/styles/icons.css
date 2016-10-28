@@ -1,0 +1,12 @@
+.eve-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.eve-icon.icon-industry {
+    background-image: url(../images/industry.png);
+}

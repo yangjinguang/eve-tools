@@ -1,0 +1,46 @@
+
+body, html, .main-body {
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar {
+    width: 80px;
+    float: left;
+    height: 100%;
+    background-color: #222;
+}
+
+.sidebar .sidebar-header {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.sidebar .sidebar-header .eve-logo {
+    width: 100%;
+}
+
+.sidebar > ul > li {
+    color: #fff;
+    padding: 10px;
+    line-height: 20px;
+    position: relative;
+    padding-left: 40px;
+
+}
+
+.sidebar > ul > li.active {
+    background-color: #080808;
+}
+
+.sidebar > ul > li .eve-icon {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+}
+
+.main-right {
+    float: left;
+    width: calc(100% - 80px);
+    height: 100%;
+}
