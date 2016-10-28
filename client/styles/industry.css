@@ -1,5 +1,6 @@
 .view-industry {
     height: 100%;
+    color: #fff;
 }
 
 .view-industry .industry-plan-list {
@@ -10,8 +11,15 @@
 }
 
 .view-industry .industry-plan-list .ipl-title {
-    height: 40px;
-    padding: 10px 20px;
+    height: 30px;
+    padding: 0 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.view-industry .industry-plan-list .ipl-title h4 {
+    margin: 0;
+    line-height: 30px;
 }
 
 .view-industry .industry-plan-list .ipl-item {
@@ -22,7 +30,7 @@
 
 .view-industry .materials-list {
     float: left;
-    width: calc(100% - 160px);
+    width: calc(100% - 360px);
 }
 
 .view-industry .materials-list .ml-title {
@@ -65,4 +73,33 @@
     height: 34px;
     width: 100%;
     border: none;
+    background-color: transparent;
+    padding: 0 10px;
+}
+
+.view-industry .materials-list .ml-table .td-input {
+    padding: 0;
+}
+
+.view-industry .materials-panel {
+    float: left;
+    width: 200px;
+    height: 100%;
+    border-left: 1px solid #ddd;
+}
+
+.view-industry .materials-panel .mp-tab {
+    height: 50%;
+}
+
+.view-industry .materials-panel .mp-tab .mpt-title {
+    background-color: rgba(50, 49, 56, 0.6);
+    color: #fff;
+    height: 30px;
+    text-align: center;
+}
+
+.view-industry .materials-panel .mp-tab .mpt-title h4 {
+    margin: 0;
+    line-height: 30px;
 }

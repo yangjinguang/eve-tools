@@ -9,6 +9,27 @@ ul.no-list-style > li {
     padding: 0;
     margin: 0;
 }
+
 .pointer {
     cursor: pointer;
+}
+
+* {
+    outline: none !important;
+}
+
+.text-success {
+    color: #45ff48;
+}
+
+
+.btn-default {
+    background: transparent!important;
+    color: #fff;
+    border-radius: 0;
+}
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover {
+    color: #999;
 }

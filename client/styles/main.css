@@ -4,16 +4,22 @@ body, html, .main-body {
     width: 100%;
 }
 
+body {
+    background: #000 url(/images/bg.jpg) no-repeat center top;
+}
+
 .sidebar {
     width: 80px;
     float: left;
     height: 100%;
-    background-color: #222;
+    /*background-color: #222;*/
+    border-right: 1px solid #ddd;
 }
 
 .sidebar .sidebar-header {
     padding: 10px;
     margin-bottom: 20px;
+
 }
 
 .sidebar .sidebar-header .eve-logo {
@@ -30,7 +36,7 @@ body, html, .main-body {
 }
 
 .sidebar > ul > li.active {
-    background-color: #080808;
+    background-color: rgba(50, 49, 56, 0.8);
 }
 
 .sidebar > ul > li .eve-icon {
