@@ -88,7 +88,7 @@ eveDB.industryPlans = {
 };
 eveDB.industryPlanItems = {
     get: function (planId, next) {
-        var sql = 'select a.plan_id as plan_id,a.type_id as type_id,b.name as item_name,a.number as number from industry_plan_items as a,items as b where a.plan_id = 3 and a.type_id = b.type_id;'
+        var sql = 'select a.plan_id as planId,a.type_id as typeId,b.name as itemName,a.number as number from industry_plan_items as a,items as b where a.plan_id = 3 and a.type_id = b.type_id;'
         _query(sql, function (errData, resData) {
             next(errData, resData)
         })

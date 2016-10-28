@@ -1,34 +1,67 @@
 .view-industry {
     height: 100%;
 }
+
 .view-industry .industry-plan-list {
-    width: 200px;
+    width: 160px;
     height: 100%;
     float: left;
     border-right: 1px solid #ddd;
 }
+
 .view-industry .industry-plan-list .ipl-title {
     height: 40px;
     padding: 10px 20px;
 }
+
 .view-industry .industry-plan-list .ipl-item {
     height: 40px;
     line-height: 40px;
     padding: 0 20px;
 }
+
 .view-industry .materials-list {
     float: left;
-    width: calc(100% - 200px);
+    width: calc(100% - 160px);
+}
+
+.view-industry .materials-list .ml-title {
+    padding: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.view-industry .materials-list .ml-plan-name {
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    height: 34px;
+}
+
+.view-industry .materials-list .ml-plan-name > h2 {
+    margin: 0;
+}
+
+.view-industry .materials-list .ml-plan-name > input {
+    height: 34px;
+    transition: none;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+}
+
+.view-industry .materials-list .ml-table {
     padding: 20px;
 }
 
-.view-industry .materials-list td {
+.view-industry .materials-list .ml-table td {
     height: 34px;
     line-height: 34px;
     padding: 0 10px;
 }
 
-.view-industry .materials-list .mtl-list-input {
+.view-industry .materials-list .ml-table .mtl-list-input {
     height: 34px;
     width: 100%;
     border: none;

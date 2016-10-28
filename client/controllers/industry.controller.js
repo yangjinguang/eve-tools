@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('eveTools')
-    .controller('IndustryController', function ($scope, $modal, ItemsResource, MarketResource) {
+    .controller('IndustryController', function ($scope, $modal, $timeout, ItemsResource, MarketResource, IndustryResource) {
         var data = $scope.data = {};
         data.items = [
             {
@@ -66,21 +66,31 @@ angular.module('eveTools')
             })
         }
 
+
         ItemsResource.getMinerals({}, function (res) {
             console.log(res);
             data.minerals = res.data;
         }, function (err) {
             console.log(err)
         });
-        data.thisItem = data.items[0];
-        angular.forEach(data.thisItem.materials, function (mtl) {
-            getPrice(mtl)
+        IndustryResource.plan.get(function (res) {
+            data.plans = res.data;
+            IndustryResource.plan.get({id: data.plans[0].id}, function (plan) {
+                data.thisPlan = plan.data;
+                angular.forEach(data.thisPlan.materials, function (mtl) {
+                    getPrice(mtl)
+                });
+            })
         });
+
 
         var fn = $scope.fn = {
             mtlSum: function () {
+                if (angular.isUndefined(data.thisPlan)) {
+                    return;
+                }
                 var res = 0;
-                angular.forEach(data.thisItem.materials, function (i) {
+                angular.forEach(data.thisPlan.materials, function (i) {
                     var price = 0;
                     try {
                         price = i.price.sell.min;
@@ -91,8 +101,18 @@ angular.module('eveTools')
                 });
                 return res;
             },
+            planNameEdit: function (event) {
+                if (data.planNameEdit) {
+                    return;
+                }
+                data.planNameEdit = true;
+                $timeout(function () {
+                    // angular.element('#ddddd')[0].focus();
+                    angular.element(event.currentTarget).find('input')[0].focus()
+                })
+            },
             delMtl: function (index) {
-                data.thisItem.materials.splice(index, 1);
+                data.thisPlan.materials.splice(index, 1);
             },
             addMtl: function () {
                 var modal = $modal({
@@ -128,7 +148,7 @@ angular.module('eveTools')
                 scope.modalData.mtlType = 'minerals';
                 scope.save = function () {
                     console.log(scope.modalData.newMtl);
-                    data.thisItem.materials.push(scope.modalData.newMtl);
+                    data.thisPlan.materials.push(scope.modalData.newMtl);
                     scope.$hide()
                 };
                 scope.test = function () {

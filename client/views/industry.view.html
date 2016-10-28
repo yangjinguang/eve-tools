@@ -4,65 +4,63 @@
         <div class="industry-plan-list">
             <div class="ipl-title">
                 <span>制造方案</span>
+                <i></i>
             </div>
             <div class="ipl-ul">
                 <ul class="no-list-style">
-                    <li class="ipl-item">
-                        乌鸦级
-                    </li>
-                    <li class="ipl-item">
-                        乌鸦级海军型
+                    <li class="ipl-item" ng-repeat="plan in data.plans">
+                        {{plan.name}}
                     </li>
                 </ul>
             </div>
         </div>
-        <!--<div class="industry-opt clearfix">-->
-            <!--<div class="pull-left">-->
-                <!--<button class="btn btn-default"-->
-                        <!--ng-model="data.thisItem"-->
-                        <!--bs-options="opt as opt.name for opt in data.items"-->
-                        <!--bs-select>-->
-                    <!--<span class="caret"></span>-->
-                <!--</button>-->
-            <!--</div>-->
-            <!--<div class="pull-right">-->
-                <!--<button class="btn btn-default">另存为</button>-->
-                <!--<button class="btn btn-default">新建</button>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="materials-list">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>材料名</th>
-                    <th>数量</th>
-                    <th>单价</th>
-                    <th>总价</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-if="data.thisItem.materials.length<=0">
-                    <td colspan="5" class="text-center">
-                        <a class="text-success pointer" ng-click="fn.addMtl()">添加材料</a>
-                    </td>
-                </tr>
-                <tr ng-repeat="mtl in data.thisItem.materials">
-                    <td>{{mtl.name}}</td>
-                    <td><input type="number" class="mtl-list-input" ng-model="mtl.number"></td>
-                    <td><span class="text-danger">{{mtl.price.sell.min|number:2}}</span> isk</td>
-                    <td><span class="text-danger">{{(mtl.price.sell.min*mtl.number)|number:2}}</span> isk</td>
-                    <td>
-                        <a class="text-success pointer" ng-if="$last" ng-click="fn.addMtl()">添加</a>
-                        <a class="text-danger pointer" ng-click="fn.delMtl($index)">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>总价</td>
-                    <td colspan="4"><span class="text-danger">{{fn.mtlSum()|number:2}}</span> isk</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="ml-title">
+                <div class="ml-plan-name" ng-click="fn.planNameEdit($event)">
+                    <h2 ng-hide="data.planNameEdit">{{data.thisPlan.name}}</h2>
+                    <input ng-show="data.planNameEdit"
+                           class="form-control"
+                           ng-model="data.thisPlan.name"
+                           ng-blur="data.planNameEdit=false">
+                </div>
+                <a class="pointer" ng-click="fn.savePlan()">另存为</a> /
+                <a class="pointer" ng-if="data.thisPlan.id" ng-click="fn.updatePlan()">更新</a>
+                <button class="btn btn-default pull-right" ng-click="fn.newPlan()">新建方案</button>
+            </div>
+            <div class="ml-table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>材料名</th>
+                        <th>数量</th>
+                        <th>单价</th>
+                        <th>总价</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="data.thisPlan.materials.length<=0">
+                        <td colspan="5" class="text-center">
+                            <a class="text-success pointer" ng-click="fn.addMtl()">添加材料</a>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="mtl in data.thisPlan.materials">
+                        <td>{{mtl.itemName}}</td>
+                        <td><input type="number" class="mtl-list-input" ng-model="mtl.number"></td>
+                        <td><span class="text-danger">{{mtl.price.sell.min|number:2}}</span> isk</td>
+                        <td><span class="text-danger">{{(mtl.price.sell.min*mtl.number)|number:2}}</span> isk</td>
+                        <td>
+                            <a class="text-success pointer" ng-if="$last" ng-click="fn.addMtl()">添加</a>
+                            <a class="text-danger pointer" ng-click="fn.delMtl($index)">删除</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>总价</td>
+                        <td colspan="4"><span class="text-danger">{{fn.mtlSum()|number:2}}</span> isk</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
