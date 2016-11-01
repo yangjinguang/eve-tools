@@ -24,6 +24,28 @@ var itemsCtrl = {
                 res.send({data: resData})
             }
         })
+    },
+    getByPath: function (req, res) {
+        console.log(req.query);
+        eveDB.items.getByPath(req.query.path, function (errData, resData) {
+            if (errData) {
+                res.status(errData.status);
+                res.send({data: errData.msg})
+            } else {
+                res.send({data: resData})
+            }
+        })
+    },
+    getTypes: function (req, res) {
+        var path = req.query.path || 'root';
+        eveDB.itemTypes.getByPath(path, function (errData, resData) {
+            if (errData) {
+                res.status(errData.status);
+                res.send({data: errData.msg})
+            } else {
+                res.send({data: resData})
+            }
+        })
     }
 };
 

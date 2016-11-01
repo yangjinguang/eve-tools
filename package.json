@@ -13,6 +13,7 @@
     "gulp": "^3.9.1"
   },
   "dependencies": {
+    "async": "^2.1.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mysql": "https://github.com/felixge/node-mysql",

@@ -22,6 +22,8 @@ app.get('/', function (req, res) {
 
 app.get('/price/:typeId', itemsCtrl.price);
 app.get('/items/minerals', itemsCtrl.getMinerals);
+app.get('/items/getByPath?', itemsCtrl.getByPath);
+app.get('/items/getTypes?', itemsCtrl.getTypes);
 
 app.get('/industry/plan', industryCtrl.plan.list);
 app.get('/industry/plan/:id', industryCtrl.plan.get);

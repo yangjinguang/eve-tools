@@ -1,0 +1,19 @@
+<div class="type-tree">
+    <ul class="type-tree-ul">
+        <li ng-repeat="type in data.typeTree.children">
+            <div ng-click="fn.showChild(type)">{{type.name}}</div>
+            <div ng-include="'type-list.html'"></div>
+        </li>
+    </ul>
+</div>
+<script type="text/ng-template" id="type-list.html">
+    <ul class="type-tree-ul" ng-if="type.childShow">
+        <li ng-repeat="type in type.children">
+            <div ng-click="fn.showChild(type)">{{type.name}}</div>
+            <div ng-include="'type-list.html'"></div>
+        </li>
+        <li ng-repeat="item in type.items">
+            {{item.name}}
+        </li>
+    </ul>
+</script>

@@ -16,4 +16,9 @@ angular.module('eveTools', [
                 templateUrl: 'views/industry.view.html',
                 controller: 'IndustryController'
             })
+        .state('demo', {
+            url: '/demo',
+            templateUrl: 'views/demo.view.html',
+            controller: 'DemoController'
+        })
     });

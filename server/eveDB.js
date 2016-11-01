@@ -1,5 +1,7 @@
 var mysql = require('mysql');
 var config = require('./config');
+var async = require('async');
+
 var mysqlConf = config.mysql;
 var pool = mysql.createPool({
     host: mysqlConf.host,
@@ -28,11 +30,85 @@ function _query(sql, cb) {
 
 var eveDB = {};
 eveDB.items = {
-    getMinerals: function (next) {
-        var sql = 'select * from items where first_market = "矿物"';
+    getPaths: function (typeId, next) {
+        var sql = 'select path from items where path != "" group by path';
         _query(sql, function (errData, resData) {
             next(errData, resData)
         })
+    },
+    getSrc: function (typeId, next) {
+        var sql;
+        if (!typeId) {
+            sql = 'select * from items_src'
+        } else {
+            sql = 'select * from items_src where type_id = ' + typeId;
+        }
+        _query(sql, function (errData, resData) {
+            next(errData, resData)
+        })
+    },
+    getByPath: function (path, next) {
+        var sql = 'select * from items where path = "' + path + '"';
+        _query(sql, function (errData, resData) {
+            next(errData, resData)
+        })
+    },
+    updatePath: function (items, next) {
+        var sqls = [];
+        items.forEach(function (i) {
+            sqls.push('update items set path = "' + i.path + '" where id = ' + i.id);
+        });
+        async.each(sqls, function (sql, callback) {
+            _query(sql, function (errData, resData) {
+                console.log(sql);
+                callback(errData, resData)
+            })
+        }, function (err) {
+            // 所有SQL执行完成后回调
+            if (err) {
+                console.log(err);
+                next(err)
+            } else {
+                console.log("SQL全部执行成功");
+                next(err, 'success')
+            }
+        });
+
+    },
+    getMinerals: function (next) {
+        var sql = 'select * from items_src where m-1 = "矿物"';
+        _query(sql, function (errData, resData) {
+            next(errData, resData)
+        })
+    }
+};
+eveDB.itemTypes = {
+    create: function (item, next) {
+
+    },
+    createBatch: function (items, next) {
+        var values = [];
+        items.forEach(function (i) {
+            var _values = [i.name, i.path];
+            values.push('("' + _values.join('","') + '")')
+        });
+        var sql = 'insert into item_types (name,path) values ' + values.join(',');
+        _query(sql, function (errData, resData) {
+            next(errData, resData)
+        });
+    },
+    getByPath: function (path, next) {
+        // var sql = 'select id,name,path from item_types where path = "' + path + '"';
+        var sql;
+        if (path == 'root') {
+            sql = 'select a.id,a.name,a.path,(select count(0) from item_types as b where b.path = a.name) as childrenCount from item_types as a where a.path = "' + path + '";'
+        } else {
+            sql = 'select a.id,a.name,a.path,(select count(0) from item_types as b where b.path = concat(a.path,"/",a.name)) as childrenCount from item_types as a where a.path = "' + path + '";'
+
+        }
+        _query(sql, function (errData, resData) {
+            next(errData, resData)
+        });
     }
 };
 eveDB.industryPlans = {

@@ -4,7 +4,7 @@ angular.module('eveTools')
         return {
             restrict: 'E',
             templateUrl: './directives/sidebar/sidebar.tpl.html',
-            link: function (scope, element, attrs, ctrl) {
+            link: function (scope, element, attr, ctrl) {
 
             }
         }
