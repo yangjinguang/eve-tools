@@ -4,3 +4,9 @@
     background-color: #fff;
     overflow: auto;
 }
+.demo .demo-tree {
+    width: 200px;
+    height: 100%;
+    overflow: auto;
+    border-right: 1px solid #ddd;
+}

@@ -1,5 +1,5 @@
 <div class="type-tree">
-    <ul class="type-tree-ul">
+    <ul class="type-tree-ul no-list-style">
         <li ng-repeat="type in data.typeTree.children">
             <div ng-click="fn.showChild(type)">{{type.name}}</div>
             <div ng-include="'type-list.html'"></div>
@@ -7,13 +7,13 @@
     </ul>
 </div>
 <script type="text/ng-template" id="type-list.html">
-    <ul class="type-tree-ul" ng-if="type.childShow">
+    <ul class="type-tree-ul no-list-style" ng-if="type.childShow" ng-style="{paddingLeft:20}">
         <li ng-repeat="type in type.children">
             <div ng-click="fn.showChild(type)">{{type.name}}</div>
             <div ng-include="'type-list.html'"></div>
         </li>
         <li ng-repeat="item in type.items">
-            {{item.name}}
+            <div>{{item.name}}</div>
         </li>
     </ul>
 </script>

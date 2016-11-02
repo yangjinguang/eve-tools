@@ -67,12 +67,12 @@ angular.module('eveTools')
         }
 
 
-        ItemsResource.getMinerals({}, function (res) {
-            console.log(res);
-            data.minerals = res.data;
-        }, function (err) {
-            console.log(err)
-        });
+        // ItemsResource.getMinerals({}, function (res) {
+        //     console.log(res);
+        //     data.minerals = res.data;
+        // }, function (err) {
+        //     console.log(err)
+        // });
         IndustryResource.plan.get(function (res) {
             data.plans = res.data;
             IndustryResource.plan.get({id: data.plans[0].id}, function (plan) {
