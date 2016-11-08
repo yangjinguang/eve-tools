@@ -3,86 +3,37 @@
 angular.module('eveTools')
     .controller('IndustryController', function ($scope, $modal, $timeout, ItemsResource, MarketResource, IndustryResource) {
         var data = $scope.data = {};
-        data.items = [
-            {
-                id: 0,
-                name: '乌鸦级海军型',
-                materials: [
-                    {
-                        typeId: 17637,
-                        name: '乌鸦级海军型蓝图',
-                        number: 1,
-                        // price: 1535000000
-                    },
-                    {
-                        typeId: 35,
-                        name: '类晶体胶矿',
-                        number: 2652667,
-                        // price: 5.23
-                    },
-                    {
-                        typeId: 37,
-                        name: '同位聚合体',
-                        number: 165911,
-                        // price: 81
-                    },
-                    {
-                        typeId: 34,
-                        name: '三钛合金',
-                        number: 10608667,
-                        // price: 2
-                    },
-                    {
-                        typeId: 36,
-                        name: '类银超金属',
-                        number: 664444,
-                        // price: 32
-                    },
-                    {
-                        typeId: 39,
-                        name: '晶状石英核岩',
-                        number: 19755,
-                        // price: 2048
-                    },
-                    {
-                        typeId: 38,
-                        name: '超新星诺克石',
-                        number: 41422,
-                        // price: 512
-                    },
-                    {
-                        typeId: 40,
-                        name: '超噬矿',
-                        number: 6288,
-                        // price: 8000
-                    }
 
-                ]
-            }
-        ];
         function getPrice(mtl, cb) {
             MarketResource.get({id: mtl.typeId}, function (res) {
                 mtl.price = res.data;
             })
         }
 
-
-        // ItemsResource.getMinerals({}, function (res) {
-        //     console.log(res);
-        //     data.minerals = res.data;
-        // }, function (err) {
-        //     console.log(err)
-        // });
-        IndustryResource.plan.get(function (res) {
-            data.plans = res.data;
-            IndustryResource.plan.get({id: data.plans[0].id}, function (plan) {
-                data.thisPlan = plan.data;
+        function getPlanDetail(plan) {
+            IndustryResource.plan.get({id: plan.id}, function (res) {
+                data.thisPlan = res.data;
+                console.log(data.thisPlan);
                 angular.forEach(data.thisPlan.materials, function (mtl) {
                     getPrice(mtl)
                 });
             })
-        });
+        }
 
+        function isInList(item, list) {
+            var res = -1;
+            angular.forEach(list, function (i, index) {
+                if (i.typeId == item.typeId) {
+                    res = index
+                }
+            });
+            return res;
+        }
+
+        IndustryResource.plan.get(function (res) {
+            data.plans = res.data;
+            getPlanDetail(data.plans[0])
+        });
 
         var fn = $scope.fn = {
             mtlSum: function () {
@@ -111,49 +62,71 @@ angular.module('eveTools')
                     angular.element(event.currentTarget).find('input')[0].focus()
                 })
             },
+            planChange: function (plan) {
+                getPlanDetail(plan)
+            },
+            newPlan: function () {
+                data.thisPlan = {
+                    name: '新建方案',
+                    materials: []
+                }
+            },
+            updatePlan: function (plan) {
+
+            },
+            savePlan: function (plan) {
+
+            },
+            materialAdd: function (item) {
+                if (isInList(item, data.thisPlan.materials) < 0) {
+                    item.number = 1;
+                    getPrice(item);
+                    data.thisPlan.materials.push(item)
+                }
+            },
             delMtl: function (index) {
                 data.thisPlan.materials.splice(index, 1);
             },
-            addMtl: function () {
-                var modal = $modal({
-                    title: '添加材料',
-                    templateUrl: 'views/industry.mtlAdd.tpl.html',
-                    show: true
-                });
-                var scope = modal.$scope;
-                scope.materials = data.minerals;
-                scope.mtlTypes = [
-                    {
-                        name: '蓝图',
-                        key: 'blueprint'
-                    },
-                    {
-                        name: '矿物',
-                        key: 'minerals'
-                    }
-                ];
-
-
-                scope.modalData = {};
-                scope.modalData.minerals = data.minerals;
-                scope.modalData.blueprint = [
-                    {
-                        typeId: 17637,
-                        name: '乌鸦级海军型蓝图',
-                        number: 1,
-                        price: 1535000000
-                    }
-                ];
-
-                scope.modalData.mtlType = 'minerals';
-                scope.save = function () {
-                    console.log(scope.modalData.newMtl);
-                    data.thisPlan.materials.push(scope.modalData.newMtl);
-                    scope.$hide()
-                };
-                scope.test = function () {
-                    console.log(scope.modalData.mtlType)
-                }
-            }
+            // addMtl: function () {
+            //     var modal = $modal({
+            //         title: '添加材料',
+            //         templateUrl: 'views/industry.mtlAdd.tpl.html',
+            //         show: true
+            //     });
+            //     var scope = modal.$scope;
+            //     scope.materials = data.minerals;
+            //     scope.mtlTypes = [
+            //         {
+            //             name: '蓝图',
+            //             key: 'blueprint'
+            //         },
+            //         {
+            //             name: '矿物',
+            //             key: 'minerals'
+            //         }
+            //     ];
+            //
+            //
+            //     scope.modalData = {};
+            //     scope.modalData.minerals = data.minerals;
+            //     scope.modalData.blueprint = [
+            //         {
+            //             typeId: 17637,
+            //             name: '乌鸦级海军型蓝图',
+            //             number: 1,
+            //             price: 1535000000
+            //         }
+            //     ];
+            //
+            //     scope.modalData.mtlType = 'minerals';
+            //     scope.save = function () {
+            //         console.log(scope.modalData.newMtl);
+            //         data.thisPlan.materials.push(scope.modalData.newMtl);
+            //         scope.$hide()
+            //     };
+            //     scope.test = function () {
+            //         console.log(scope.modalData.mtlType)
+            //     }
+            // }
         }
     });

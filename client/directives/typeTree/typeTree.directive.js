@@ -2,6 +2,9 @@ angular.module('eveTools')
     .directive('typeTree', function (ItemsResource) {
         return {
             restrict: 'E',
+            scope: {
+                itemClick: '&'
+            },
             templateUrl: './directives/typeTree/typeTree.tpl.html',
             link: function (scope, element, attr, ctrl) {
                 var data = scope.data = {};

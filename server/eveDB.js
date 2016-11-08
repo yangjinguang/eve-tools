@@ -48,7 +48,8 @@ eveDB.items = {
         })
     },
     getByPath: function (path, next) {
-        var sql = 'select * from items where path = "' + path + '"';
+        var sql = 'select `id`,`type_id` as `typeId`,`name` as itemName,`describe`,`path` from items where `path` = "' + path + '"';
+        console.log(sql)
         _query(sql, function (errData, resData) {
             next(errData, resData)
         })

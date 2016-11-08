@@ -9,4 +9,5 @@
     height: 100%;
     overflow: auto;
     border-right: 1px solid #ddd;
+    padding: 10px;
 }

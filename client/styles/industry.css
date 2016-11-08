@@ -26,6 +26,11 @@
     height: 40px;
     line-height: 40px;
     padding: 0 20px;
+    cursor: pointer;
+}
+
+.view-industry .industry-plan-list .ipl-item.active {
+    background-color: rgba(50, 49, 56, 0.8);
 }
 
 .view-industry .materials-list {
@@ -86,20 +91,6 @@
     width: 200px;
     height: 100%;
     border-left: 1px solid #ddd;
-}
-
-.view-industry .materials-panel .mp-tab {
-    height: 50%;
-}
-
-.view-industry .materials-panel .mp-tab .mpt-title {
-    background-color: rgba(50, 49, 56, 0.6);
-    color: #fff;
-    height: 30px;
-    text-align: center;
-}
-
-.view-industry .materials-panel .mp-tab .mpt-title h4 {
-    margin: 0;
-    line-height: 30px;
+    padding: 10px;
+    overflow: auto;
 }

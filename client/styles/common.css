@@ -22,12 +22,12 @@ ul.no-list-style > li {
     color: #45ff48;
 }
 
-
 .btn-default {
-    background: transparent!important;
+    background: transparent !important;
     color: #fff;
     border-radius: 0;
 }
+
 .btn-default:active,
 .btn-default:focus,
 .btn-default:hover {
@@ -35,7 +35,18 @@ ul.no-list-style > li {
 }
 
 /** type-tree **/
-.type-tree .type-tree-ul {
-
+.type-tree-ul .type-name,
+.type-tree-ul .item-name {
+    cursor: pointer;
+    white-space: nowrap;
 }
+.type-tree-ul .type-item {
+    white-space: nowrap;
+}
+
+.type-tree-ul .type-name:hover,
+.type-tree-ul .item-name:hover {
+    background-color: #666;
+}
+
 /** type-tree **/
