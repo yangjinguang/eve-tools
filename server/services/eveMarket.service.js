@@ -17,7 +17,11 @@ var eveMarket = {
         };
         // console.log('GET ' + url);
         request(options, function (err, resData, body) {
-            next(err, body)
+            if (err) {
+                next(null, 'Null')
+            } else {
+                next(null, body)
+            }
         });
     }
 };
